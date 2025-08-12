@@ -1,82 +1,66 @@
-# Lightweight React Template for KAVIA
+# Aurora Travels - Monolithic Landing Page (React + Express)
 
-This project provides a minimal React template with a clean, modern UI and minimal dependencies.
+A visually appealing, responsive, and accessible landing page for a tourist company built as a monolithic app:
+- React frontend (Create React App)
+- Express.js backend with optional MongoDB for contact inquiries
 
 ## Features
-
-- **Lightweight**: No heavy UI frameworks - uses only vanilla CSS and React
-- **Modern UI**: Clean, responsive design with KAVIA brand styling
-- **Fast**: Minimal dependencies for quick loading times
-- **Simple**: Easy to understand and modify
+- About, Services, Destinations, Testimonials, and Contact sections
+- Responsive design with light/dark theme toggle
+- Accessible components and semantic markup
+- Backend API for content and contact
+- Optional MongoDB persistence for inquiries
+- Production-ready static serving from Express
 
 ## Getting Started
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-### `npm test`
-
-Launches the test runner in interactive watch mode.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-## Customization
-
-### Colors
-
-The main brand colors are defined as CSS variables in `src/App.css`:
-
-```css
-:root {
-  --kavia-orange: #E87A41;
-  --kavia-dark: #1A1A1A;
-  --text-color: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.7);
-  --border-color: rgba(255, 255, 255, 0.1);
-}
+Install dependencies:
+```bash
+npm install
 ```
 
-### Components
+Run the backend:
+```bash
+npm run server
+```
 
-This template uses pure HTML/CSS components instead of a UI framework. You can find component styles in `src/App.css`. 
+Run the frontend (in a separate terminal):
+```bash
+npm start
+```
 
-Common components include:
-- Buttons (`.btn`, `.btn-large`)
-- Container (`.container`)
-- Navigation (`.navbar`)
-- Typography (`.title`, `.subtitle`, `.description`)
+By default, the React app proxies API requests to `http://localhost:5000` (configured in `package.json`).
+Open http://localhost:3000 to view the app.
 
-## Learn More
+## Environment Variables
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Copy `.env.example` to `.env` and provide values via your orchestrator or environment:
+- `PORT` (default: 5000)
+- `MONGO_URI` (optional). If not set, inquiries will be accepted but not persisted.
 
-### Code Splitting
+## API
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- `GET /api/health` → `{ status: 'ok' }`
+- `GET /api/content` → returns landing page content
+- `POST /api/contact` → accepts `{ name, email, message, subject?, phone? }`
+  - Response: `{ success: boolean, stored: boolean, id?: string }`
 
-### Analyzing the Bundle Size
+## Production
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Build the frontend:
+```bash
+npm run build
+```
 
-### Making a Progressive Web App
+Set `NODE_ENV=production` and run the server:
+```bash
+npm run server
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Express will serve the `build` directory and the API under `/api`.
 
-### Advanced Configuration
+## Notes on Accessibility and Performance
+- Headings follow semantic order and landmarks are used (nav, main, section, footer).
+- Interactive elements have focus styles and ARIA labels.
+- Minimal images and gradients for faster loads. SEO title/description are set in `App.js`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
